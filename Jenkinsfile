@@ -25,7 +25,7 @@ pipeline {
             steps {
                 sh 'docker stop vehiculosBuild || true'
                 sh 'docker rm vehiculosBuild || true'
-                sh 'docker run -d -p 9090:8080 --name vehiculosBuild vehiculosBuild_img'
+                sh 'docker run -d -p 9090:8080 --name vehiculosBuild vehiculosbuild_img'
             }
         }
     }
