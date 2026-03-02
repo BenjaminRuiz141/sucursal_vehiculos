@@ -18,14 +18,14 @@ pipeline {
         }
         stage('Docker Image') {
             steps {
-                sh 'docker build -t vehiculosBuild .'
+                sh 'docker build -t vehiculosbuild_img .'
             }
         }
         stage('Deployment') {
             steps {
                 sh 'docker stop vehiculosBuild || true'
                 sh 'docker rm vehiculosBuild || true'
-                sh 'docker run -d -p 9090:8080 --name vehiculosBuild imagen_vehiculos'
+                sh 'docker run -d -p 9090:8080 --name vehiculosBuild vehiculosBuild_img'
             }
         }
     }
