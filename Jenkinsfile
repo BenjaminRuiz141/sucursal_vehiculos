@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Git Clone') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Webhook_benjamin', url: 'https://github.com/BenjaminRuiz141/sucursal_vehiculos']])
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'webhook_benjamin', url: 'https://github.com/BenjaminRuiz141/sucursal_vehiculos']])
             }
         }
         stage('Build Aplication - Maven') {
@@ -18,14 +18,14 @@ pipeline {
         }
         stage('Docker Image') {
             steps {
-                sh 'docker build -t imagen_vehiculos .'
+                sh 'docker build -t vehiculosBuild .'
             }
         }
         stage('Deployment') {
             steps {
-                sh 'docker stop contenedor_sucursal || true'
-                sh 'docker rm contenedor_sucursal || true'
-                sh 'docker run -d -p 9090:8080 --name contenedor_sucursal imagen_vehiculos'
+                sh 'docker stop vehiculosBuild || true'
+                sh 'docker rm vehiculosBuild || true'
+                sh 'docker run -d -p 9090:8080 --name vehiculosBuild imagen_vehiculos'
             }
         }
     }
